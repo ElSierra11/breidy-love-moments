@@ -228,6 +228,8 @@ def memories_list_create(request, pk=None):
         try:
             date_val = datetime.datetime.strptime(date_str, '%Y-%m-%d').date()
             first_media = media_files[0] if media_files else None
+            if first_media:
+                first_media.seek(0)
             
             memory = Memory.objects.create(
                 title=title, description=description,
@@ -235,6 +237,7 @@ def memories_list_create(request, pk=None):
             )
             
             for file in media_files:
+                file.seek(0)
                 MemoryPhoto.objects.create(memory=memory, file=file)
                 
             photos_data = []
