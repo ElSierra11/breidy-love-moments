@@ -1,0 +1,37 @@
+# Virtual environment
+venv/
+.venv/
+ENV/
+env/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Django specific
+db.sqlite3
+db.sqlite3-journal
+staticfiles/
+media/*
+!media/couple.jpg
+
+# Node / Frontend
+node_modules/
+dist/
+.eslintcache
+
+# Environment variables & secrets
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+
+# IDE and OS files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
