@@ -194,11 +194,17 @@ def memories_list_create(request, pk=None):
         data = []
         for m in memories:
             media_url = request.build_absolute_uri(m.media.url) if m.media else None
+            if media_url and m.media_type == 'video':
+                media_url = media_url.replace('/image/upload/', '/video/upload/')
+            
             photos_data = []
             for photo in m.photos.all():
+                url = request.build_absolute_uri(photo.file.url)
+                if photo.media_type == 'video':
+                    url = url.replace('/image/upload/', '/video/upload/')
                 photos_data.append({
                     'id': photo.id,
-                    'url': request.build_absolute_uri(photo.file.url),
+                    'url': url,
                     'media_type': photo.media_type,
                 })
             data.append({
@@ -242,13 +248,18 @@ def memories_list_create(request, pk=None):
                 
             photos_data = []
             for photo in memory.photos.all():
+                url = request.build_absolute_uri(photo.file.url)
+                if photo.media_type == 'video':
+                    url = url.replace('/image/upload/', '/video/upload/')
                 photos_data.append({
                     'id': photo.id,
-                    'url': request.build_absolute_uri(photo.file.url),
+                    'url': url,
                     'media_type': photo.media_type,
                 })
                 
             media_url = request.build_absolute_uri(memory.media.url) if memory.media else None
+            if media_url and memory.media_type == 'video':
+                media_url = media_url.replace('/image/upload/', '/video/upload/')
 
             # ── Email notification ────────────────────────────────────────
             photo_count = len(photos_data)
