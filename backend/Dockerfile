@@ -24,5 +24,5 @@ COPY . /app/
 # Exponer el puerto 8000
 EXPOSE 8000
 
-# Comando para producción: recolectar archivos estáticos y arrancar Gunicorn
-CMD ["sh", "-c", "python manage.py collectstatic --noinput && gunicorn love_backend.wsgi:application --bind 0.0.0.0:8000"]
+# Comando para producción: migraciones, archivos estáticos y Gunicorn
+CMD ["sh", "-c", "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn love_backend.wsgi:application --bind 0.0.0.0:8000"]
